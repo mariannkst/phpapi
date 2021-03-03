@@ -1,25 +1,36 @@
 <?php
-/*
-if (!isset($_SERVER['PHP_AUTH_USER'])) {
-    header('WWW-Authenticate: Basic realm="My Realm"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo 'Text to send if user hits Cancel button';
-    exit;
-} else {
-    echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>";
-    echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
-}*/
-
-
 
 header("Content-Type:application/json");
 
+// Check access
+
+$accessToken = "12345";
+
+if (!isset($_GET['accessToken'])){
+    header('HTTP/1.0 401 Unauthorized');
+    echo '{"statusCode":"'. http_response_code() .'", "message": "Unauthorized"}';
+    exit();
+
+} else {
+
+    $userAccessToken = $_GET['accessToken'];
+
+    if ($accessToken != $userAccessToken) {
+
+        header('HTTP/1.0 401 Unauthorized');
+        echo '{"statusCode":"'. http_response_code() .'", "message": "Unauthorized"}';
+        exit();
+    }
+}
+
+// Connect to database
 require_once 'database.php';
 
+// Get the data from the database
 try{
     $sQuery = $db->prepare('SELECT * FROM users');
     $sQuery->execute();
-    // Array 
+    // Get the array of users 
     $aUsers = $sQuery->fetchAll();
 
     if (empty($aUsers)) {
@@ -38,6 +49,7 @@ try{
     $sQuery = null;
     $db = null;
 
+// Error handling
 }catch(PDOException $ex){
 
     http_response_code(500);
