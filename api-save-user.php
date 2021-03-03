@@ -1,7 +1,7 @@
 <?php
 
 header("Content-Type:application/json");
-//ini_set('display_errors', FALSE);
+ini_set('display_errors', FALSE);
 
 // Check access
 

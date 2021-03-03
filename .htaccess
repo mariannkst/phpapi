@@ -1,3 +1,13 @@
 RewriteEngine On    # Turn on the rewriting engine
  
-RewriteRule ^api/([0-9a-zA-Z_-]*)$ api-get-users.php?accessToken=$1 [NC,L]
+RewriteRule ^api/users/([0-9a-zA-Z_-]*)$ api-get-users.php?accessToken=$1 [NC,L]
+RewriteRule ^api/users/newUser/([0-9a-zA-Z_-]*)$ api-save-user.php?accessToken=$1 [NC,L]
+
+# Disable files and directories index listing
+Options -Indexes
+DirectoryIndex index.php
+
+<Files "database.php">  
+  Order Allow,Deny
+  Deny from all
+</Files>
