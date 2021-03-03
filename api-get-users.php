@@ -1,13 +1,14 @@
 <?php
 
 header("Content-Type:application/json");
+ini_set('display_errors', FALSE);
 
 // Check access
 
 $accessToken = "12345";
 
 if (!isset($_GET['accessToken'])){
-    header('HTTP/1.0 401 Unauthorized');
+    http_response_code(401);
     echo '{"statusCode":"'. http_response_code() .'", "message": "Unauthorized"}';
     exit();
 
@@ -17,7 +18,7 @@ if (!isset($_GET['accessToken'])){
 
     if ($accessToken != $userAccessToken) {
 
-        header('HTTP/1.0 401 Unauthorized');
+        http_response_code(401);
         echo '{"statusCode":"'. http_response_code() .'", "message": "Unauthorized"}';
         exit();
     }
@@ -53,7 +54,7 @@ try{
 }catch(PDOException $ex){
 
     http_response_code(500);
-    echo '{"statusCode":"'. http_response_code() .'", "message": "Internal server error"}';
+    echo '{"statusCode":"'. http_response_code() .'", "message": "Internal Server Error"}';
     exit();
 
 }

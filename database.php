@@ -13,6 +13,6 @@ try{
 
 }catch( PDOException $e){
     http_response_code(503);
-    echo '{"statusCode":"'.http_response_code().'","message":"Service unavailable"}';
+    echo '{"statusCode":"'.http_response_code().'","message":"Service Unavailable"}';
     exit();
 }
