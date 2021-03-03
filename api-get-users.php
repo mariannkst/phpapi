@@ -11,9 +11,9 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 }*/
 
 
-/*
+
 header("Content-Type:application/json");
-*/
+
 require_once 'database.php';
 
 try{
@@ -25,12 +25,18 @@ try{
     if (empty($aUsers)) {
 
         echo '{"statusCode":"'. http_response_code() .'", "message": "There are no users"}';
+
+        $sQuery = null;
+        $db = null;
+
         exit();
 
     } else if (!empty($aUsers)){
         echo json_encode($aUsers);
     }
 
+    $sQuery = null;
+    $db = null;
 
 }catch(PDOException $ex){
 
