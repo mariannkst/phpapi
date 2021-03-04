@@ -57,13 +57,14 @@ try{
 
     if( $sQuery->rowCount() ){
         echo '{ "statusCode":"'. http_response_code() .'",
-                "message": "User saved",
+                "message": "User Successfully created",
                 "user": {
                         "name": "'.$name.'",
                         "email": "'.$email.'",
                         "phoneNumber": "'.$phoneNumber.'",
                         "height": "'.$height.'"
-                        }';
+                        }
+                }';
         
         exit();
     }
