@@ -27,6 +27,7 @@ if (!isset($_GET['accessToken'])){
 if (!isset($_POST['name']) || 
     !isset($_POST['email']) || 
     !isset($_POST['phoneNumber']) || 
+    !isset($_POST['height']) || 
     !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)  // validate email
     ){
 
@@ -38,17 +39,19 @@ if (!isset($_POST['name']) ||
 $name = $_POST['name'];
 $email = $_POST['email'];
 $phoneNumber = $_POST['phoneNumber'];
+$height = $_POST['height'];
 
 // Connect to database
 require_once 'database.php';
 
 // Prepare statement and add user
 try{
-    $sQuery = $db->prepare('INSERT INTO users VALUES(null, :sName, :sEmail, :sPhoneNumber)');
+    $sQuery = $db->prepare('INSERT INTO users VALUES(null, :sName, :sEmail, :sPhoneNumber, :iHeight)');
 
     $sQuery->bindValue(':sName', $name);
     $sQuery->bindValue(':sEmail', $email);
     $sQuery->bindValue(':sPhoneNumber', $phoneNumber);
+    $sQuery->bindValue(':iHeight', $height);
 
     $sQuery->execute();
 
@@ -58,7 +61,8 @@ try{
                 "user": {
                         "name": "'.$name.'",
                         "email": "'.$email.'",
-                        "phoneNumber": "'.$phoneNumber.'"
+                        "phoneNumber": "'.$phoneNumber.'",
+                        "height": "'.$height.'"
                         }';
         
         exit();
