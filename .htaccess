@@ -1,7 +1,7 @@
 RewriteEngine On    # Turn on the rewriting engine
  
 RewriteRule ^api/users/([0-9a-zA-Z_-]*)$ api-get-users.php?accessToken=$1 [NC,L]
-RewriteRule ^api/users/newUser/([0-9a-zA-Z_-]*)$ api-save-user.php?accessToken=$1 [NC,L]
+RewriteRule ^api/users/newUser/([0-9a-zA-Z_-]*)$ api-create-user.php?accessToken=$1 [NC,L]
 
 # Disable files and directories index listing
 Options -Indexes
